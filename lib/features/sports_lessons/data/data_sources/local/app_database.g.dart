@@ -61,7 +61,7 @@ class _$AppDatabase extends AppDatabase {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
-  ArticleDao? _articleDaoInstance;
+  WorkoutDao? _workoutDaoInstance;
 
   Future<sqflite.Database> open(
     String path,
@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `articles` (`id` INTEGER, `author` TEXT, `title` TEXT, `description` TEXT, `url` TEXT, `urlToImage` TEXT, `publishedAt` TEXT, `content` TEXT, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `workout` (`id` INTEGER, `name` TEXT, `description` TEXT, `type` TEXT, `level` TEXT, `duration` TEXT, `recommendation` TEXT, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -94,42 +94,40 @@ class _$AppDatabase extends AppDatabase {
   }
 
   @override
-  ArticleDao get articleDao {
-    return _articleDaoInstance ??= _$ArticleDao(database, changeListener);
+  WorkoutDao get workoutDao {
+    return _workoutDaoInstance ??= _$WorkoutDao(database, changeListener);
   }
 }
 
-class _$ArticleDao extends ArticleDao {
-  _$ArticleDao(
+class _$WorkoutDao extends WorkoutDao {
+  _$WorkoutDao(
     this.database,
     this.changeListener,
   )   : _queryAdapter = QueryAdapter(database),
-        _articleModelInsertionAdapter = InsertionAdapter(
+        _workoutModelInsertionAdapter = InsertionAdapter(
             database,
-            'articles',
-            (ArticleModel item) => <String, Object?>{
+            'workout',
+            (WorkoutModel item) => <String, Object?>{
                   'id': item.id,
-                  'author': item.author,
-                  'title': item.title,
+                  'name': item.name,
                   'description': item.description,
-                  'url': item.url,
-                  'urlToImage': item.urlToImage,
-                  'publishedAt': item.publishedAt,
-                  'content': item.content
+                  'type': item.type,
+                  'level': item.level,
+                  'duration': item.duration,
+                  'recommendation': item.recommendation
                 }),
-        _articleModelDeletionAdapter = DeletionAdapter(
+        _workoutModelDeletionAdapter = DeletionAdapter(
             database,
-            'articles',
+            'workout',
             ['id'],
-            (ArticleModel item) => <String, Object?>{
+            (WorkoutModel item) => <String, Object?>{
                   'id': item.id,
-                  'author': item.author,
-                  'title': item.title,
+                  'name': item.name,
                   'description': item.description,
-                  'url': item.url,
-                  'urlToImage': item.urlToImage,
-                  'publishedAt': item.publishedAt,
-                  'content': item.content
+                  'type': item.type,
+                  'level': item.level,
+                  'duration': item.duration,
+                  'recommendation': item.recommendation
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -138,32 +136,31 @@ class _$ArticleDao extends ArticleDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<ArticleModel> _articleModelInsertionAdapter;
+  final InsertionAdapter<WorkoutModel> _workoutModelInsertionAdapter;
 
-  final DeletionAdapter<ArticleModel> _articleModelDeletionAdapter;
+  final DeletionAdapter<WorkoutModel> _workoutModelDeletionAdapter;
 
   @override
-  Future<List<ArticleModel>> getArticles() async {
-    return _queryAdapter.queryList('SELECT * FROM articles',
-        mapper: (Map<String, Object?> row) => ArticleModel(
+  Future<List<WorkoutModel>> getWorkout() async {
+    return _queryAdapter.queryList('SELECT * FROM workout',
+        mapper: (Map<String, Object?> row) => WorkoutModel(
             id: row['id'] as int?,
-            author: row['author'] as String?,
-            title: row['title'] as String?,
+            name: row['name'] as String?,
             description: row['description'] as String?,
-            url: row['url'] as String?,
-            urlToImage: row['urlToImage'] as String?,
-            publishedAt: row['publishedAt'] as String?,
-            content: row['content'] as String?));
+            type: row['type'] as String?,
+            level: row['level'] as String?,
+            duration: row['duration'] as String?,
+            recommendation: row['recommendation'] as String?));
   }
 
   @override
-  Future<void> insertArticle(ArticleModel article) async {
-    await _articleModelInsertionAdapter.insert(
-        article, OnConflictStrategy.abort);
+  Future<void> insertWorkout(WorkoutModel workout) async {
+    await _workoutModelInsertionAdapter.insert(
+        workout, OnConflictStrategy.abort);
   }
 
   @override
-  Future<void> deleteArticle(ArticleModel article) async {
-    await _articleModelDeletionAdapter.delete(article);
+  Future<void> deleteWorkout(WorkoutModel workout) async {
+    await _workoutModelDeletionAdapter.delete(workout);
   }
 }

@@ -1,5 +1,7 @@
 class S {
 
+  static const String app_name = 'Мои тренировки';
+
   //saved_workouts_page
   static const String saved_workouts = 'Сохраненные тренировки';
 

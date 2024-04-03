@@ -3,12 +3,12 @@ import 'package:equatable/equatable.dart';
 import '../../../../domain/entities/article.dart';
 
 abstract class LocalWorkoutState extends Equatable {
-  final List<ArticleEntity>? articles;
+  final List<WorkoutEntity>? workout;
 
-  const LocalWorkoutState({this.articles});
+  const LocalWorkoutState({this.workout});
 
   @override
-  List<Object> get props => [articles!];
+  List<Object> get props => [workout!];
 }
 
 class LocalWorkoutLoading extends LocalWorkoutState {
@@ -16,5 +16,5 @@ class LocalWorkoutLoading extends LocalWorkoutState {
 }
 
 class LocalWorkoutDone extends LocalWorkoutState {
-  const LocalWorkoutDone(List<ArticleEntity> articles) : super(articles: articles);
+  const LocalWorkoutDone(List<WorkoutEntity> workout) : super(workout: workout);
 }

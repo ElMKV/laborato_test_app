@@ -9,7 +9,7 @@ import '../../../domain/entities/article.dart';
 import '../../bloc/article/local/local_workout_bloc.dart';
 import '../../bloc/article/local/local_workout_event.dart';
 import '../../bloc/article/local/local_workout_state.dart';
-import '../../widgets/article_tile.dart';
+import '../../widgets/workout_tile.dart';
 
 class SavedWorkouts extends HookWidget {
   const SavedWorkouts({Key ? key}) : super(key: key);
@@ -39,7 +39,7 @@ class SavedWorkouts extends HookWidget {
           ),
         ),
       ],
-      title: const Text(S.saved_workouts, style: TextStyle(color: Colors.black)),
+      title: const Text(S.app_name, style: TextStyle(color: Colors.black)),
     );
   }
 
@@ -49,15 +49,15 @@ class SavedWorkouts extends HookWidget {
         if (state is LocalWorkoutLoading) {
           return const Center(child: CupertinoActivityIndicator());
         } else if (state is LocalWorkoutDone) {
-          return _buildArticlesList(state.articles!);
+          return _buildArticlesList(state.workout!);
         }
         return Container();
       },
     );
   }
 
-  Widget _buildArticlesList(List<ArticleEntity> articles) {
-    if (articles.isEmpty) {
+  Widget _buildArticlesList(List<WorkoutEntity> workout) {
+    if (workout.isEmpty) {
       return const Center(
           child: Text(
         S.no_saved_workouts,
@@ -66,12 +66,12 @@ class SavedWorkouts extends HookWidget {
     }
 
     return ListView.builder(
-      itemCount: articles.length,
+      itemCount: workout.length,
       itemBuilder: (context, index) {
         return WorkoutsWidget(
-          article: articles[index],
+          workout: workout[index],
           isRemovable: true,
-          onRemove: (article) => _onRemoveArticle(context, article),
+          onRemove: (workout) => _onRemoveWorkout(context, workout),
         );
       },
     );
@@ -80,7 +80,7 @@ class SavedWorkouts extends HookWidget {
   void _onAddPressed(BuildContext context) {
     Navigator.pushNamed(context, '/AddLesson');
   }
-  void _onRemoveArticle(BuildContext context, ArticleEntity article) {
-    BlocProvider.of<LocalWorkoutBloc>(context).add(RemoveWorkout(article));
+  void _onRemoveWorkout(BuildContext context, WorkoutEntity workout) {
+    BlocProvider.of<LocalWorkoutBloc>(context).add(RemoveWorkout(workout));
   }
 }

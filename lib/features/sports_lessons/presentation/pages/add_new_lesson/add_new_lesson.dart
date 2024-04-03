@@ -9,7 +9,7 @@ import '../../../domain/entities/article.dart';
 import '../../bloc/article/local/local_workout_bloc.dart';
 import '../../bloc/article/local/local_workout_event.dart';
 import '../../bloc/article/local/local_workout_state.dart';
-import '../../widgets/article_tile.dart';
+import '../../widgets/workout_tile.dart';
 
 class AddNewLesson extends HookWidget {
   const AddNewLesson({Key ? key}) : super(key: key);
@@ -44,14 +44,14 @@ class AddNewLesson extends HookWidget {
         if (state is LocalWorkoutLoading) {
           return const Center(child: CupertinoActivityIndicator());
         } else if (state is LocalWorkoutDone) {
-          return _buildArticlesList(state.articles!);
+          return _buildArticlesList(state.workout!);
         }
         return Container();
       },
     );
   }
 
-  Widget _buildArticlesList(List<ArticleEntity> articles) {
+  Widget _buildArticlesList(List<WorkoutEntity> workout) {
     return Text('form');
   }
 
