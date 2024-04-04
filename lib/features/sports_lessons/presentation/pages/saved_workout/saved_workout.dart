@@ -27,6 +27,7 @@ class SavedWorkouts extends HookWidget {
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       actions: [
         Builder(
           builder: (context) => GestureDetector(
