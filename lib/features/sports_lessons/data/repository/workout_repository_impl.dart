@@ -1,6 +1,6 @@
 import 'package:laborato_test_app/features/sports_lessons/data/data_sources/local/app_database.dart';
 import 'package:laborato_test_app/features/sports_lessons/data/models/workout.dart';
-import 'package:laborato_test_app/features/sports_lessons/domain/entities/article.dart';
+import 'package:laborato_test_app/features/sports_lessons/domain/entities/workout.dart';
 import 'package:laborato_test_app/features/sports_lessons/domain/repository/workout_repository.dart';
 
 

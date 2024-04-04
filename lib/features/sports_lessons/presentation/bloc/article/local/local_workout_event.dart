@@ -1,7 +1,7 @@
 
 
 import 'package:equatable/equatable.dart';
-import 'package:laborato_test_app/features/sports_lessons/domain/entities/article.dart';
+import 'package:laborato_test_app/features/sports_lessons/domain/entities/workout.dart';
 
 abstract class LocalWorkoutEvent extends Equatable {
   final WorkoutEntity? workout;
@@ -21,4 +21,32 @@ class RemoveWorkout extends LocalWorkoutEvent {
 
 class SaveWorkout extends LocalWorkoutEvent {
   const SaveWorkout(WorkoutEntity workout) : super(workout: workout);
+}
+
+class TypeChange extends LocalWorkoutEvent {
+  final String type;
+  const TypeChange(this.type);
+}
+
+class LvlChange extends LocalWorkoutEvent {
+  final String lvl;
+  const LvlChange(this.lvl);
+}
+
+class DurationsChange extends LocalWorkoutEvent {
+  final String duration;
+  const DurationsChange(this.duration);
+}
+
+class NameChange extends LocalWorkoutEvent {
+  final String name;
+  const NameChange(this.name);
+}
+class DescChange extends LocalWorkoutEvent {
+  final String desc;
+  const DescChange(this.desc);
+}
+class RecChange extends LocalWorkoutEvent {
+  final String rec;
+  const RecChange(this.rec);
 }

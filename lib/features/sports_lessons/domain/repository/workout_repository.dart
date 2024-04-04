@@ -1,4 +1,4 @@
-import 'package:laborato_test_app/features/sports_lessons/domain/entities/article.dart';
+import 'package:laborato_test_app/features/sports_lessons/domain/entities/workout.dart';
 
 abstract class WorkoutRepository {
   // Database Methods

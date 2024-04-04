@@ -1,31 +1,36 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../domain/entities/article.dart';
+import 'package:laborato_test_app/core/constants/strings.dart';
+import '../../domain/entities/workout.dart';
 
 class WorkoutsWidget extends StatelessWidget {
   final WorkoutEntity? workout;
-  final bool? isRemovable;
   final void Function(WorkoutEntity workout)? onRemove;
 
   const WorkoutsWidget({
     Key? key,
     this.workout,
-    this.isRemovable = false,
     this.onRemove,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsetsDirectional.only(
-          start: 14, end: 14, bottom: 10, top: 10),
-      height: MediaQuery.of(context).size.width / 2,
-      child: Row(
-        children: [
-          _buildTitleAndDescription(),
-          _buildRemovableArea(),
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        elevation: 2,
+        child: Container(
+          padding: const EdgeInsetsDirectional.only(
+              start: 14, end: 14, bottom: 10, top: 10),
+          height: MediaQuery.of(context).size.height/2,
+          child: Row(
+            children: [
+              _buildTitleAndDescription(),
+              _buildRemovableArea(),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -37,18 +42,34 @@ class WorkoutsWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Name
-          Text(
-            workout!.name ?? '',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w200),
+          Expanded(
+            child: Text(
+              workout!.name ?? '',
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w200),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
+          Text(S.desc, style: TextStyle(fontWeight: FontWeight.bold),),
           // Description
           Expanded(
+            flex: 2,
             child: SingleChildScrollView(
-
               child: Padding(
                 padding: const EdgeInsets.all(8),
                 child: Text(
                   workout!.description ?? '',
+                ),
+              ),
+            ),
+          ),
+          Text(S.recommendation, style: TextStyle(fontWeight: FontWeight.bold),),
+          Expanded(
+            flex: 2,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(
+                  workout!.recommendation ?? '',
                 ),
               ),
             ),
@@ -62,21 +83,21 @@ class WorkoutsWidget extends StatelessWidget {
               children: [
                 const Icon(Icons.info_outlined, size: 18),
                 Text(
-                  workout!.type!,
+                  workout!.type ?? '--',
                   style: const TextStyle(
                     fontSize: 12,
                   ),
                 ),
                 const Icon(Icons.timeline_outlined, size: 18),
                 Text(
-                  workout!.level!,
+                  workout!.level ?? '--',
                   style: const TextStyle(
                     fontSize: 12,
                   ),
                 ),
                 const Icon(Icons.schedule_outlined, size: 18),
                 Text(
-                  workout!.duration!,
+                  workout!.duration ?? '--',
                   style: const TextStyle(
                     fontSize: 12,
                   ),
@@ -90,7 +111,6 @@ class WorkoutsWidget extends StatelessWidget {
   }
 
   Widget _buildRemovableArea() {
-    if (isRemovable!) {
       return GestureDetector(
         onTap: _onRemove,
         child: const Padding(
@@ -98,8 +118,7 @@ class WorkoutsWidget extends StatelessWidget {
           child: Icon(Icons.remove_circle_outline, color: Colors.red),
         ),
       );
-    }
-    return Container();
+
   }
 
   void _onRemove() {

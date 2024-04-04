@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:laborato_test_app/core/constants/strings.dart';
 import '../../../../../injection_container.dart';
-import '../../../domain/entities/article.dart';
+import '../../../domain/entities/workout.dart';
 import '../../bloc/article/local/local_workout_bloc.dart';
 import '../../bloc/article/local/local_workout_event.dart';
 import '../../bloc/article/local/local_workout_state.dart';
@@ -49,14 +49,14 @@ class SavedWorkouts extends HookWidget {
         if (state is LocalWorkoutLoading) {
           return const Center(child: CupertinoActivityIndicator());
         } else if (state is LocalWorkoutDone) {
-          return _buildArticlesList(state.workout!);
+          return _buildWorkoutList(state.pageState.workout!);
         }
         return Container();
       },
     );
   }
 
-  Widget _buildArticlesList(List<WorkoutEntity> workout) {
+  Widget _buildWorkoutList(List<WorkoutEntity> workout) {
     if (workout.isEmpty) {
       return const Center(
           child: Text(
@@ -70,7 +70,6 @@ class SavedWorkouts extends HookWidget {
       itemBuilder: (context, index) {
         return WorkoutsWidget(
           workout: workout[index],
-          isRemovable: true,
           onRemove: (workout) => _onRemoveWorkout(context, workout),
         );
       },
