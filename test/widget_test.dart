@@ -1,30 +1,40 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:laborato_test_app/main.dart';
+import 'package:laborato_test_app/core/constants/strings.dart';
+import 'package:laborato_test_app/features/sports_lessons/data/models/workout.dart';
+import 'package:laborato_test_app/features/sports_lessons/presentation/widgets/workout_tile.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('finds a Text widgets', (tester) async {
+    final List<WorkoutModel> workout = [
+      WorkoutModel(
+          id: 1,
+          name: 'test name',
+          description: 'test description',
+          level: S.lvls.first,
+          duration: S.durations.first,
+          type: S.types.first,
+          recommendation: 'test recommendation')
+    ];
+    // Build an App with a Text widget that displays the letter 'H'.
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+          body: ListView.builder(
+        itemCount: 1,
+        itemBuilder: (context, index) {
+          return WorkoutsWidget(
+            workout: workout[index],
+          );
+        },
+      )),
+    ));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Find a widget that displays the letter 'H'.
+    expect(find.text(workout.first.name!), findsOneWidget);
+    expect(find.text(workout.first.description!), findsOneWidget);
+    expect(find.text(workout.first.level!), findsOneWidget);
+    expect(find.text(workout.first.duration!), findsOneWidget);
+    expect(find.text(workout.first.type!), findsOneWidget);
+    expect(find.text(workout.first.recommendation!), findsOneWidget);
   });
 }
