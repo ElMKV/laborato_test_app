@@ -24,6 +24,7 @@ void main() {
         itemBuilder: (context, index) {
           return WorkoutsWidget(
             workout: workout[index],
+            id: index,
           );
         },
       )),

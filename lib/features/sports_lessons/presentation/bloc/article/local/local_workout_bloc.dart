@@ -37,9 +37,17 @@ class LocalWorkoutBloc extends Bloc<LocalWorkoutEvent, LocalWorkoutState> {
 
   void onRemoveWorkout(
       RemoveWorkout removeWorkout, Emitter<LocalWorkoutState> emit) async {
+    emit(LocalWorkoutDone(state.pageState
+        .copyWith(index: removeWorkout.workout!.id, remove: true)));
+
     await _removeWorkoutUseCase(params: removeWorkout.workout);
     final workout = await _getSavedWorkoutUseCase();
-    emit(LocalWorkoutDone(state.pageState.copyWith(workout: workout)));
+
+    emit(LocalWorkoutDone(state.pageState.copyWith(remove: false)));
+
+    await Future.delayed(const Duration(milliseconds: 500), () {
+      emit(LocalWorkoutDone(state.pageState.copyWith(workout: workout)));
+    });
   }
 
   void onSaveWorkout(

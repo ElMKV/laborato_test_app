@@ -3,6 +3,7 @@ import 'package:laborato_test_app/features/sports_lessons/domain/entities/workou
 
 abstract class LocalWorkoutEvent extends Equatable {
   final WorkoutEntity? workout;
+
   const LocalWorkoutEvent({this.workout});
 
   @override
@@ -23,28 +24,36 @@ class SaveWorkout extends LocalWorkoutEvent {
 
 class TypeChange extends LocalWorkoutEvent {
   final String type;
+
   const TypeChange(this.type);
 }
 
 class LvlChange extends LocalWorkoutEvent {
   final String lvl;
+
   const LvlChange(this.lvl);
 }
 
 class DurationsChange extends LocalWorkoutEvent {
   final String duration;
+
   const DurationsChange(this.duration);
 }
 
 class NameChange extends LocalWorkoutEvent {
   final String name;
+
   const NameChange(this.name);
 }
+
 class DescChange extends LocalWorkoutEvent {
   final String desc;
+
   const DescChange(this.desc);
 }
+
 class RecChange extends LocalWorkoutEvent {
   final String rec;
+
   const RecChange(this.rec);
 }

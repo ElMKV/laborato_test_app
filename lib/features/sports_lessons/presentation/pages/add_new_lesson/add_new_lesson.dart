@@ -44,6 +44,9 @@ class AddNewLesson extends HookWidget {
   }
 
   Widget _buildForm(context, LocalWorkoutState state) {
+    Size size = MediaQuery.of(context).size;
+    double width = size.width;
+    double height = size.height;
     return Container(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
@@ -75,25 +78,25 @@ class AddNewLesson extends HookWidget {
                 height: 20,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   //type workout
-                  const Text(
-                    S.type,
-                    style: TextStyle(fontSize: 20),
+                  const FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      S.type,
+                    ),
                   ),
                   SizedBox(
                       height: 50,
                       child: SelectorWheel(
+                        width: 70,
                         childHeight: 26,
-                        width: 120.0,
+
                         childCount: state.pageState.typeWorkout.length,
-                        highlightBorderRadius: BorderRadius.circular(4),
                         convertIndexToValue: (int index) {
                           List<String> type = state.pageState.typeWorkout;
-
                           final value = type[index];
-
                           return SelectorWheelValue(
                               label: value, value: value, index: index);
                         },
@@ -102,9 +105,11 @@ class AddNewLesson extends HookWidget {
                         },
                       )),
                   //lvl workout
-                  const Text(
-                    S.lvl,
-                    style: TextStyle(fontSize: 20),
+                  const FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      S.lvl,
+                    ),
                   ),
                   SizedBox(
                       height: 50,
@@ -132,11 +137,13 @@ class AddNewLesson extends HookWidget {
               ),
               //duration workout
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    S.duration,
-                    style: TextStyle(fontSize: 20),
+                  const FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      S.duration,
+                    ),
                   ),
                   SizedBox(
                       height: 50,
@@ -163,11 +170,11 @@ class AddNewLesson extends HookWidget {
                 height: 20,
               ),
               CupertinoButton(
-                child: const Text(S.save),
                 onPressed: () {
                   _onSaveButtonTapped(context);
                 },
                 color: Colors.black,
+                child: const Text(S.save),
               )
             ],
           ),

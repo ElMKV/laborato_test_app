@@ -12,7 +12,7 @@ import '../../bloc/article/local/local_workout_state.dart';
 import '../../widgets/workout_tile.dart';
 
 class SavedWorkouts extends HookWidget {
-  const SavedWorkouts({Key ? key}) : super(key: key);
+  const SavedWorkouts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,9 @@ class SavedWorkouts extends HookWidget {
           builder: (context) => GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () => _onAddPressed(context),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: const Icon(Ionicons.add, color: Colors.black),
+            child: const Padding(
+              padding: EdgeInsets.only(right: 18.0),
+              child: Icon(Ionicons.add, color: Colors.black),
             ),
           ),
         ),
@@ -50,14 +50,15 @@ class SavedWorkouts extends HookWidget {
         if (state is LocalWorkoutLoading) {
           return const Center(child: CupertinoActivityIndicator());
         } else if (state is LocalWorkoutDone) {
-          return _buildWorkoutList(state.pageState.workout!);
+          return _buildWorkoutList(state.pageState.workout!, state);
         }
         return Container();
       },
     );
   }
 
-  Widget _buildWorkoutList(List<WorkoutEntity> workout) {
+  Widget _buildWorkoutList(
+      List<WorkoutEntity> workout, LocalWorkoutState state) {
     if (workout.isEmpty) {
       return const Center(
           child: Text(
@@ -65,14 +66,29 @@ class SavedWorkouts extends HookWidget {
         style: TextStyle(color: Colors.black),
       ));
     }
-
     return ListView.builder(
       itemCount: workout.length,
       itemBuilder: (context, index) {
-        return WorkoutsWidget(
-          workout: workout[index],
-          onRemove: (workout) => _onRemoveWorkout(context, workout),
-        );
+        if (state.pageState.index == workout[index].id) {
+          return AnimatedCrossFade(
+            firstChild: WorkoutsWidget(
+              workout: workout[index],
+              onRemove: (workout) => _onRemoveWorkout(context, workout),
+              id: index,
+            ),
+            secondChild: const SizedBox.shrink(),
+            crossFadeState: state.pageState.remove
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
+            duration: const Duration(milliseconds: 500),
+          );
+        } else {
+          return WorkoutsWidget(
+            workout: workout[index],
+            onRemove: (workout) => _onRemoveWorkout(context, workout),
+            id: index,
+          );
+        }
       },
     );
   }
@@ -80,7 +96,10 @@ class SavedWorkouts extends HookWidget {
   void _onAddPressed(BuildContext context) {
     Navigator.pushNamed(context, '/AddLesson');
   }
-  void _onRemoveWorkout(BuildContext context, WorkoutEntity workout) {
-    BlocProvider.of<LocalWorkoutBloc>(context).add(RemoveWorkout(workout));
+
+  void _onRemoveWorkout(
+      BuildContext context, WorkoutEntity workout) {
+    BlocProvider.of<LocalWorkoutBloc>(context)
+        .add(RemoveWorkout(workout));
   }
 }

@@ -5,7 +5,13 @@ ThemeData theme() {
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: appBarTheme(),
     useMaterial3: true,
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: Colors.black,
+    ),
     textTheme: const TextTheme(
+      titleLarge: TextStyle(
+        fontSize: 14.0,
+      ),
       displayLarge: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,

@@ -24,15 +24,19 @@ class PageState {
   final String? name;
   final String? desc;
   final String? rec;
+  final int? index;
 
   final String? type;
   final String? lvl;
 
   final String? durations;
+  final bool remove;
 
   PageState({
     this.workout = const [],
     this.type,
+    this.index,
+    this.remove = false,
     this.lvl,
     this.durations,
     this.name,
@@ -43,6 +47,8 @@ class PageState {
   PageState copyWith({
     List<WorkoutEntity>? workout,
     String? type,
+    bool? remove,
+    int? index,
     String? lvl,
     String? durations,
     String? name,
@@ -52,6 +58,8 @@ class PageState {
     return PageState(
       workout: workout ?? this.workout,
       type: type ?? this.type,
+      remove: remove ?? this.remove,
+      index: index ?? this.index,
       lvl: lvl ?? this.lvl,
       durations: durations ?? this.durations,
       name: name ?? this.name,

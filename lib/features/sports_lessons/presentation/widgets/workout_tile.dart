@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laborato_test_app/core/constants/strings.dart';
 import '../../domain/entities/workout.dart';
@@ -6,11 +5,13 @@ import '../../domain/entities/workout.dart';
 class WorkoutsWidget extends StatelessWidget {
   final WorkoutEntity? workout;
   final void Function(WorkoutEntity workout)? onRemove;
+  final int id;
 
   const WorkoutsWidget({
     Key? key,
     this.workout,
     this.onRemove,
+    required this.id,
   }) : super(key: key);
 
   @override
@@ -40,6 +41,7 @@ class WorkoutsWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text('№ $id'),
           // Name
           Expanded(
             child: Text(
