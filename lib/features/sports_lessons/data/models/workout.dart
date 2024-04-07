@@ -1,5 +1,4 @@
 import 'package:floor/floor.dart';
-import 'package:laborato_test_app/core/constants/constants.dart';
 import 'package:laborato_test_app/features/sports_lessons/domain/entities/workout.dart';
 
 @Entity(tableName: 'workout', primaryKeys: ['id'])

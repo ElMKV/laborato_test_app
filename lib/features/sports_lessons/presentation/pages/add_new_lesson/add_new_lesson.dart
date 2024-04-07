@@ -78,7 +78,10 @@ class AddNewLesson extends HookWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   //type workout
-                  const Text(S.type),
+                  const Text(
+                    S.type,
+                    style: TextStyle(fontSize: 20),
+                  ),
                   SizedBox(
                       height: 50,
                       child: SelectorWheel(
@@ -88,9 +91,9 @@ class AddNewLesson extends HookWidget {
                         highlightBorderRadius: BorderRadius.circular(4),
                         convertIndexToValue: (int index) {
                           List<String> type = state.pageState.typeWorkout;
-          
+
                           final value = type[index];
-          
+
                           return SelectorWheelValue(
                               label: value, value: value, index: index);
                         },
@@ -99,7 +102,10 @@ class AddNewLesson extends HookWidget {
                         },
                       )),
                   //lvl workout
-                  const Text(S.lvl),
+                  const Text(
+                    S.lvl,
+                    style: TextStyle(fontSize: 20),
+                  ),
                   SizedBox(
                       height: 50,
                       child: SelectorWheel(
@@ -109,9 +115,9 @@ class AddNewLesson extends HookWidget {
                         highlightBorderRadius: BorderRadius.circular(4),
                         convertIndexToValue: (int index) {
                           List<String> lvl = state.pageState.lvlWorkout;
-          
+
                           final value = lvl[index];
-          
+
                           return SelectorWheelValue(
                               label: value, value: value, index: index);
                         },
@@ -128,20 +134,22 @@ class AddNewLesson extends HookWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text(S.duration),
+                  const Text(
+                    S.duration,
+                    style: TextStyle(fontSize: 20),
+                  ),
                   SizedBox(
                       height: 50,
                       child: SelectorWheel(
                         childHeight: 26,
                         width: 100.0,
                         childCount: state.pageState.durationWorkout.length,
-                        highlightBorderRadius: BorderRadius.circular(4),
                         convertIndexToValue: (int index) {
                           List<String> durationWorkout =
                               state.pageState.durationWorkout;
-          
+
                           final value = durationWorkout[index];
-          
+
                           return SelectorWheelValue(
                               label: value, value: value, index: index);
                         },
@@ -191,18 +199,15 @@ class AddNewLesson extends HookWidget {
   }
 
   void _nameChange(context, String value) {
-    BlocProvider.of<LocalWorkoutBloc>(context)
-        .add(NameChange(value));
+    BlocProvider.of<LocalWorkoutBloc>(context).add(NameChange(value));
   }
 
   void _descChange(context, String value) {
-    BlocProvider.of<LocalWorkoutBloc>(context)
-        .add(DescChange(value));
+    BlocProvider.of<LocalWorkoutBloc>(context).add(DescChange(value));
   }
 
   void _recChange(context, String value) {
-    BlocProvider.of<LocalWorkoutBloc>(context)
-        .add(RecChange(value));
+    BlocProvider.of<LocalWorkoutBloc>(context).add(RecChange(value));
   }
 }
 

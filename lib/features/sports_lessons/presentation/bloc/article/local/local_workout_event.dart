@@ -1,5 +1,3 @@
-
-
 import 'package:equatable/equatable.dart';
 import 'package:laborato_test_app/features/sports_lessons/domain/entities/workout.dart';
 

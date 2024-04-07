@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
 import 'package:laborato_test_app/core/constants/strings.dart';
-
 import '../../../../domain/entities/workout.dart';
 
 abstract class LocalWorkoutState {

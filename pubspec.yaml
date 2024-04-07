@@ -37,9 +37,6 @@ dependencies:
   #Database
   floor: ^1.4.2
 
-  # routing
-  auto_route: ^7.8.4
-
   #comparing dart objects
   equatable: ^2.0.5
 
@@ -47,13 +44,10 @@ dependencies:
   get_it: ^7.6.4
 
   #core
-  cached_network_image: ^3.3.0
   intl: ^0.18.1
   flutter_hooks: ^0.20.3
 
   #ui
-  shimmer: ^3.0.0
-  flutter_svg: ^2.0.7
   ionicons: ^0.2.2
   selector_wheel: ^1.1.2
 

@@ -14,15 +14,14 @@ final sl = GetIt.instance;
 Future<void> initializeDependencies() async {
   final database = await $FloorAppDatabase.databaseBuilder('app_database.db').build();
   sl.registerSingleton<AppDatabase>(database);
+
   // Dio
   sl.registerSingleton<Dio>(Dio());
-
 
   // Repository
   sl.registerLazySingleton<WorkoutRepository>(() => WorkoutRepositoryImpl(sl()));
 
   // Use cases
-
   sl.registerLazySingleton(() => GetSavedWorkoutUseCase(sl()));
 
   sl.registerLazySingleton(() => SaveWorkoutUseCase(sl()));
@@ -30,6 +29,5 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton(() => RemoveWorkoutUseCase(sl()));
 
   // Blocs
-
   sl.registerFactory<LocalWorkoutBloc>(() => LocalWorkoutBloc(sl(), sl(), sl()));
 }

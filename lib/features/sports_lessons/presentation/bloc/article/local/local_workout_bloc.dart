@@ -70,22 +70,16 @@ class LocalWorkoutBloc extends Bloc<LocalWorkoutEvent, LocalWorkoutState> {
         state.pageState.copyWith(durations: onDurationsChange.duration)));
   }
 
-  void onNameChange(
-      NameChange onNameChange, Emitter<LocalWorkoutState> emit) {
+  void onNameChange(NameChange onNameChange, Emitter<LocalWorkoutState> emit) {
     print(onNameChange.name);
-    emit(LocalWorkoutDone(
-        state.pageState.copyWith(name: onNameChange.name)));
+    emit(LocalWorkoutDone(state.pageState.copyWith(name: onNameChange.name)));
   }
 
-  void onDescChange(
-      DescChange onDescChange, Emitter<LocalWorkoutState> emit) {
-    emit(LocalWorkoutDone(
-        state.pageState.copyWith(desc: onDescChange.desc)));
+  void onDescChange(DescChange onDescChange, Emitter<LocalWorkoutState> emit) {
+    emit(LocalWorkoutDone(state.pageState.copyWith(desc: onDescChange.desc)));
   }
 
-  void onRecChange(
-      RecChange onRecChange, Emitter<LocalWorkoutState> emit) {
-    emit(LocalWorkoutDone(
-        state.pageState.copyWith(rec: onRecChange.rec)));
+  void onRecChange(RecChange onRecChange, Emitter<LocalWorkoutState> emit) {
+    emit(LocalWorkoutDone(state.pageState.copyWith(rec: onRecChange.rec)));
   }
 }

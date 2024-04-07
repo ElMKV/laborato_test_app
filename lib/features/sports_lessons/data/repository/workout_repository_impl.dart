@@ -3,7 +3,6 @@ import 'package:laborato_test_app/features/sports_lessons/data/models/workout.da
 import 'package:laborato_test_app/features/sports_lessons/domain/entities/workout.dart';
 import 'package:laborato_test_app/features/sports_lessons/domain/repository/workout_repository.dart';
 
-
 class WorkoutRepositoryImpl implements WorkoutRepository {
   final AppDatabase _appDatabase;
   WorkoutRepositoryImpl(this._appDatabase);
