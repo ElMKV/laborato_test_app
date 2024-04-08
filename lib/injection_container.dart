@@ -4,6 +4,7 @@ import 'package:laborato_test_app/features/sports_lessons/data/data_sources/loca
 import 'package:laborato_test_app/features/sports_lessons/data/repository/workout_repository_impl.dart';
 import 'package:laborato_test_app/features/sports_lessons/domain/repository/workout_repository.dart';
 import 'package:laborato_test_app/features/sports_lessons/domain/usecases/get_saved_workout.dart';
+import 'package:laborato_test_app/features/sports_lessons/domain/usecases/get_saved_workout_param.dart';
 import 'package:laborato_test_app/features/sports_lessons/domain/usecases/remove_workout.dart';
 import 'package:laborato_test_app/features/sports_lessons/domain/usecases/save_workout.dart';
 import 'package:laborato_test_app/features/sports_lessons/presentation/bloc/article/local/local_workout_bloc.dart';
@@ -24,10 +25,12 @@ Future<void> initializeDependencies() async {
   // Use cases
   sl.registerLazySingleton(() => GetSavedWorkoutUseCase(sl()));
 
+  sl.registerLazySingleton(() => GetSavedWorkoutParamUseCase(sl()));
+
   sl.registerLazySingleton(() => SaveWorkoutUseCase(sl()));
 
   sl.registerLazySingleton(() => RemoveWorkoutUseCase(sl()));
 
   // Blocs
-  sl.registerFactory<LocalWorkoutBloc>(() => LocalWorkoutBloc(sl(), sl(), sl()));
+  sl.registerFactory<LocalWorkoutBloc>(() => LocalWorkoutBloc(sl(), sl(), sl(), sl()));
 }

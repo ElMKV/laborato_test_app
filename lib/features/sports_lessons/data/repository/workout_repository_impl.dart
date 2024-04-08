@@ -14,6 +14,11 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
   }
 
   @override
+  Future<List<WorkoutEntity>> getSavedWorkoutsParam(String value) async {
+    return _appDatabase.workoutDao.getWorkoutParam(value);
+  }
+
+  @override
   Future<void> removeWorkout(WorkoutEntity workout) {
     return _appDatabase.workoutDao.deleteWorkout(WorkoutModel.fromEntity(workout));
   }

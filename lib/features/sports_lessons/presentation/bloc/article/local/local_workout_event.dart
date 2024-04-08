@@ -14,6 +14,12 @@ class GetSavedWorkout extends LocalWorkoutEvent {
   const GetSavedWorkout();
 }
 
+class GetSavedWorkoutParam extends LocalWorkoutEvent {
+ final int value;
+
+  const GetSavedWorkoutParam(this.value);
+}
+
 class RemoveWorkout extends LocalWorkoutEvent {
   const RemoveWorkout(WorkoutEntity workout) : super(workout: workout);
 }

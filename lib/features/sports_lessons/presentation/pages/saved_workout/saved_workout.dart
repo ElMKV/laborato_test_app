@@ -50,46 +50,84 @@ class SavedWorkouts extends HookWidget {
         if (state is LocalWorkoutLoading) {
           return const Center(child: CupertinoActivityIndicator());
         } else if (state is LocalWorkoutDone) {
-          return _buildWorkoutList(state.pageState.workout!, state);
+          return Column(
+            children: [
+              _buildChips(state),
+              _buildWorkoutList(state.pageState.workout!, state),
+            ],
+          );
         }
         return Container();
       },
     );
   }
 
+  Widget _buildChips(LocalWorkoutState state) {
+    return Center(
+      child: SizedBox(
+        height: 100,
+        child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: state.pageState.lvlWorkout.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InputChip(
+                  onSelected: (bool value) {
+                    _onChipPressed(context, value, index);
+                  },
+                  label: Text(
+                    state.pageState.lvlWorkout[index],
+                    style: TextStyle(
+                        color: state.pageState.indexChip == index
+                            ? Colors.white
+                            : Colors.black),
+                  ),
+                  backgroundColor: state.pageState.indexChip == index
+                      ? Colors.black
+                      : Colors.white,
+                ),
+              );
+            }),
+      ),
+    );
+  }
+
   Widget _buildWorkoutList(
       List<WorkoutEntity> workout, LocalWorkoutState state) {
     if (workout.isEmpty) {
-      return const Center(
-          child: Text(
+      return const Text(
         S.no_saved_workouts,
         style: TextStyle(color: Colors.black),
-      ));
+      );
     }
-    return ListView.builder(
-      itemCount: workout.length,
-      itemBuilder: (context, index) {
-        if (state.pageState.index == workout[index].id) {
-          return AnimatedCrossFade(
-            firstChild: WorkoutsWidget(
+    return Expanded(
+      child: ListView.builder(
+        itemCount: workout.length,
+        itemBuilder: (context, index) {
+          if (state.pageState.index == workout[index].id) {
+            return AnimatedCrossFade(
+              firstChild: WorkoutsWidget(
+                workout: workout[index],
+                onRemove: (workout) => _onRemoveWorkout(context, workout),
+                id: index,
+              ),
+              secondChild: const SizedBox.shrink(),
+              crossFadeState: state.pageState.remove
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
+              duration: const Duration(milliseconds: 500),
+            );
+          } else {
+            return WorkoutsWidget(
               workout: workout[index],
               onRemove: (workout) => _onRemoveWorkout(context, workout),
               id: index,
-            ),
-            secondChild: const SizedBox.shrink(),
-            crossFadeState: state.pageState.remove
-                ? CrossFadeState.showFirst
-                : CrossFadeState.showSecond,
-            duration: const Duration(milliseconds: 500),
-          );
-        } else {
-          return WorkoutsWidget(
-            workout: workout[index],
-            onRemove: (workout) => _onRemoveWorkout(context, workout),
-            id: index,
-          );
-        }
-      },
+            );
+          }
+        },
+      ),
     );
   }
 
@@ -97,9 +135,11 @@ class SavedWorkouts extends HookWidget {
     Navigator.pushNamed(context, '/AddLesson');
   }
 
-  void _onRemoveWorkout(
-      BuildContext context, WorkoutEntity workout) {
-    BlocProvider.of<LocalWorkoutBloc>(context)
-        .add(RemoveWorkout(workout));
+  void _onRemoveWorkout(BuildContext context, WorkoutEntity workout) {
+    BlocProvider.of<LocalWorkoutBloc>(context).add(RemoveWorkout(workout));
+  }
+
+  void _onChipPressed(BuildContext context, bool value, int index) {
+    BlocProvider.of<LocalWorkoutBloc>(context).add(GetSavedWorkoutParam(index));
   }
 }

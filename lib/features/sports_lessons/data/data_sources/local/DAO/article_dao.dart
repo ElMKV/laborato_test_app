@@ -11,4 +11,7 @@ abstract class WorkoutDao {
 
   @Query('SELECT * FROM workout')
   Future<List<WorkoutModel>> getWorkout();
+
+  @Query('SELECT * FROM workout WHERE level = :value')
+  Future<List<WorkoutModel>> getWorkoutParam(String value);
 }

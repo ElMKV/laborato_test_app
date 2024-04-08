@@ -154,6 +154,20 @@ class _$WorkoutDao extends WorkoutDao {
   }
 
   @override
+  Future<List<WorkoutModel>> getWorkoutParam(String value) async {
+    return _queryAdapter.queryList('SELECT * FROM workout WHERE level = ?1',
+        mapper: (Map<String, Object?> row) => WorkoutModel(
+            id: row['id'] as int?,
+            name: row['name'] as String?,
+            description: row['description'] as String?,
+            type: row['type'] as String?,
+            level: row['level'] as String?,
+            duration: row['duration'] as String?,
+            recommendation: row['recommendation'] as String?),
+        arguments: [value]);
+  }
+
+  @override
   Future<void> insertWorkout(WorkoutModel workout) async {
     await _workoutModelInsertionAdapter.insert(
         workout, OnConflictStrategy.abort);
