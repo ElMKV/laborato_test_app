@@ -23,7 +23,7 @@ class WorkoutsWidget extends StatelessWidget {
         child: Container(
           padding: const EdgeInsetsDirectional.only(
               start: 14, end: 14, bottom: 10, top: 10),
-          height: MediaQuery.of(context).size.height/2,
+          height: MediaQuery.of(context).size.height / 2,
           child: Row(
             children: [
               _buildTitleAndDescription(),
@@ -41,16 +41,17 @@ class WorkoutsWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('№ $id'),
-          // Name
           Expanded(
             child: Text(
-              workout!.name ?? '',
+              workout!.name ?? '-',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w200),
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Text(S.desc, style: TextStyle(fontWeight: FontWeight.bold),),
+          Text(
+            S.desc,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           // Description
           Expanded(
             flex: 2,
@@ -63,7 +64,10 @@ class WorkoutsWidget extends StatelessWidget {
               ),
             ),
           ),
-          Text(S.recommendation, style: TextStyle(fontWeight: FontWeight.bold),),
+          Text(
+            S.recommendation,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           Expanded(
             flex: 2,
             child: SingleChildScrollView(
@@ -112,14 +116,13 @@ class WorkoutsWidget extends StatelessWidget {
   }
 
   Widget _buildRemovableArea() {
-      return GestureDetector(
-        onTap: _onRemove,
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: Icon(Icons.remove_circle_outline, color: Colors.red),
-        ),
-      );
-
+    return GestureDetector(
+      onTap: _onRemove,
+      child: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        child: Icon(Icons.remove_circle_outline, color: Colors.red),
+      ),
+    );
   }
 
   void _onRemove() {

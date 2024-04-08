@@ -106,26 +106,11 @@ class SavedWorkouts extends HookWidget {
       child: ListView.builder(
         itemCount: workout.length,
         itemBuilder: (context, index) {
-          if (state.pageState.index == workout[index].id) {
-            return AnimatedCrossFade(
-              firstChild: WorkoutsWidget(
-                workout: workout[index],
-                onRemove: (workout) => _onRemoveWorkout(context, workout),
-                id: index,
-              ),
-              secondChild: const SizedBox.shrink(),
-              crossFadeState: state.pageState.remove
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
-              duration: const Duration(milliseconds: 500),
-            );
-          } else {
-            return WorkoutsWidget(
-              workout: workout[index],
-              onRemove: (workout) => _onRemoveWorkout(context, workout),
-              id: index,
-            );
-          }
+         return WorkoutsWidget(
+           workout: workout[index],
+           onRemove: (workout) => _onRemoveWorkout(context, workout),
+           id: index,
+         );
         },
       ),
     );

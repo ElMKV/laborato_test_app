@@ -45,8 +45,10 @@ class LocalWorkoutBloc extends Bloc<LocalWorkoutEvent, LocalWorkoutState> {
       Emitter<LocalWorkoutState> emit) async {
     if (state.pageState.indexChip == onGetSavedWorkoutParam.value) {
       final workout = await _getSavedWorkoutUseCase();
-      emit(LocalWorkoutDone(
-          state.pageState.copyWith(workout: workout, indexChip: state.pageState.lvl!.length + 1))); //emit filtered workout and length + 1 in list strings for disable chip
+      emit(LocalWorkoutDone(state.pageState.copyWith(
+          workout: workout,
+          indexChip: state.pageState.lvl!.length +
+              1))); //emit filtered workout and length + 1 in list strings for disable chip
       print(state.pageState.indexChip);
     } else {
       final workout = await _getSavedWorkoutParamUseCase(
@@ -58,17 +60,12 @@ class LocalWorkoutBloc extends Bloc<LocalWorkoutEvent, LocalWorkoutState> {
 
   void onRemoveWorkout(
       RemoveWorkout removeWorkout, Emitter<LocalWorkoutState> emit) async {
-    emit(LocalWorkoutLoading(state.pageState
-        .copyWith(index: removeWorkout.workout!.id, remove: true, indexChip: state.pageState.lvl!.length + 1))); //emit filtered workout and length + 1 in list strings for disable chip
-
     await _removeWorkoutUseCase(params: removeWorkout.workout);
     final workout = await _getSavedWorkoutUseCase();
-
-    emit(LocalWorkoutDone(state.pageState.copyWith(remove: false)));
-
-    await Future.delayed(const Duration(milliseconds: 500), () {
-      emit(LocalWorkoutDone(state.pageState.copyWith(workout: workout))); // await animation in ui
-    });
+    emit(LocalWorkoutDone(state.pageState.copyWith(
+        indexChip: state.pageState.lvl!.length + 1,
+        workout:
+            workout))); //emit filtered workout and length + 1 in list strings for disable chip
   }
 
   void onSaveWorkout(
